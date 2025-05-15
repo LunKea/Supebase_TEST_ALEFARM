@@ -1,33 +1,25 @@
 ---
-//@ts-nocheck
-const {
-  beer,
-  class: extraClass,
-} = Astro.props;
+import zard from "../components/Card.astro";
+
+const url =
+  "https://qxzbnouobeqeoleqrllh.supabase.co/rest/v1/AlefarmBrewingEXAM";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4emJub3VvYmVxZW9sZXFybGxoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcwNDQ4MTYsImV4cCI6MjA2MjYyMDgxNn0.XW2IwfWGSgwE375yAIMAo0x-89W7Jq6Jn_n7sg6Ummk";
+const options = { headers: { apikey: key } };
+
+const data: any[] = await fetch(url, options).then((res) => res.json());
 ---
 
-  <div class="beer_card">
-    <h1>{beer.product}</h1>
-    <img src="../assets/alefarm_beer.png" alt="alefarm beer tm">
-    <h2>{beer.price} KR</h2>
-
-    <a href=`../pages/${beer.id}`>READ MERE NAOW!!!</a>   
-    <!-- <a href="../pages/product/${beer.id}">READ MERE NAOW!</a> -->
-    <p>{beer.description}</p>
-    <p>{beer.ingredient}</p>
-    <p>{beer.date}</p> 
-  </div>
-
-
-  <style>
-    .beer_card{
-        padding-left: 10px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        margin-top: 50px;
-        margin-bottom: 5px;
-        border-radius: 50px;
-        background-color: #D9D9D9;
-        max-width: 30%;
+<article>
+  <div class="cards_layout">
+    {
+      data.map((event: any, index: number) => (
+        <div class="card">
+          <Card />
+        </div>
+      ))
     }
-  </style>
+  </div>
+</article>
+
+<style></style>
