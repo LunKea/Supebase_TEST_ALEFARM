@@ -1,0 +1,40 @@
+---
+import { getStaticPaths } from './product/{SingleProduct}.astro';
+
+//@ts-nocheck
+export async function getStaticPaths()
+{
+  const {data} = await supabase
+  .from('AlefarmBrewingSEM2')
+  .select('id')
+
+  return {
+    paths: data.map(beer => ({
+      params: {id: beer.id.toString()}
+    }))
+  }  
+}
+
+const {id} = Astro.props
+
+const {data: beer} = await supabase
+ .from('AlefarmBrewingSEM2')
+ .select('*')
+ .eq('id', id)
+ .single()
+
+---
+
+
+
+<article>
+
+    <h1>Hej</h1>
+
+<h1>{mybeer.product}</h1>
+    <h2>{mybeer.price} KR</h2>
+    <p>{mybeer.description}</p>
+    <p>{mybeer.ingredient}</p>
+    <p>{mybeer.date}</p> 
+
+</article>
